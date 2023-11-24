@@ -6,10 +6,25 @@ import { auth,
          createUserDocumentFromAuth, 
          signInWithGoogleRedirect } from "../../utils/firebase/firebase.utils";
 
-const SignIn = () =>{
-    useEffect(async () => {
+import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
+
+//Method for useEffects and async data
+/*         useEffect(() => {
+            async function fetchData() {
+              // You can await here
+              const response = await MyAPI.getData(someId);
+              // ...
+            }
+            fetchData();
+          }, [someId]); // Or [] if effect doesn't need props or state */
+
+const SignIn = () => {
+    useEffect( () => async function () {
         const response = await getRedirectResult(auth);
-        console.log(response);
+        if(response){
+        const userDocRef = await createUserDocumentFromAuth(response.user);
+
+        }
     }, []);
 
     const logGoogleUser = async() => {
@@ -27,6 +42,8 @@ const SignIn = () =>{
             <button onClick={signInWithGoogleRedirect}>
                 Sign in with Google Redirect
             </button>
+
+            <SignUpForm />
         </div>
     )
 }
